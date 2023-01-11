@@ -39,7 +39,6 @@ export default {
               >
               <router-link to="/product"
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
-                href="#"
                 >Produk</router-link
               >
               <a
@@ -58,7 +57,7 @@ export default {
               >
               <a v-if='!access_token'
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
-                href="#"
+                href="/register"
                 >Daftar</a
               >
               <a @click.prevent="logout" v-if='access_token'

@@ -4,12 +4,14 @@ import { GoogleLogin } from "vue3-google-login";
 
 import { mapWritableState, mapActions } from "pinia";
 import { useCounterStore } from "../stores/counter";
+import NavbarVue from '../components/Navbar.vue'
 
 export default {
   // name:"Login",
   components: {
     Button,
     GoogleLogin,
+    NavbarVue
   },
   data() {
     return {
@@ -30,6 +32,10 @@ export default {
 </script>
 
 <template>
+<div>
+
+  <NavbarVue />
+
   <div id="login" class="min-h-screen flex items-center justify-center">
     <div
       class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center"
@@ -117,4 +123,5 @@ export default {
       </div>
     </div>
   </div>
+</div>
 </template>

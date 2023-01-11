@@ -12,21 +12,32 @@ export default {
     },
     data(){
         return{
+            buttonItem : []
         }
     },
     computed:{
-    ...mapWritableState(useCounterStore,["oneGame", "items","cekId","playerId", "gameName", "nickname","nominal","region", "zonaML", "type", "price","access_token"])
+    ...mapWritableState(useCounterStore,["oneGame", "items","cekId","playerId", "gameName", "nickname","nominal","region", "zonaML", "type", "price","access_token","promoCode"])
     },
     methods:{
       ...mapActions(useCounterStore,["detailCard", "priceCalculate", "paymentConfirm", "handleCekId"]),
       handleCalculate(price, id, nominal,type ){
         console.log(price, id, nominal,type, "<<<<<<<<<<<");
         this.priceCalculate(price, id, nominal,type)
+        this.buttonItem =  []
+        this.buttonItem[id - 1] = true
       },
+
+      
     },
     created(){
       this.detailCard(this.$route.params.gameId)
       this.playerId = ""
+      this.nickname = ""
+      this.buttonItem =  []
+
+    },
+    mounted(){
+        for(let val in this.items) {this.buttonItem.push(0)}
     }
 };
 </script>
@@ -102,8 +113,9 @@ export default {
                     </div>
 
                     <div class="text-sm font-semibold m-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-                        <div @click="handleCalculate(item.price,item.id,item.nominal,item.type)"  v-for="item in items" :key="item.id" class="p-4 flex flex-col items-center border-solid border-2 border-green-700 rounded-xl shadow-xl hover:bg-green-200 hover:scale-105 duration-300">
-                            <img class="w-14 h-14" :src="item.itemIconUrl" alt="">
+                        <div @click="handleCalculate(item.price,item.id,item.nominal,item.type)"  v-for="item in items" :key="item.id" class="p-4 flex flex-col items-center border-solid border-2 rounded-xl shadow-xl duration-300" 
+                        :class="{'bg-green-400 scale-105 ':buttonItem[item.id -1],'border-green-700 border-solid border-2' :!buttonItem[item.id -1]}">
+                            <img class="w-14 h-14 " :src="item.itemIconUrl" alt="">
                             <div class="text-black"><span id="denom">{{item.nominal}}</span> <span id="type">{{item.type}}</span></div>
                         </div>
                     </div>
@@ -124,21 +136,21 @@ export default {
                     </div>
 
                     <form @submit.prevent="paymentConfirm(price)">
-                        <input class ="w-11/12 my-4 py-2.5 px-6 mx-2  border-solid border-2 border-green-700 rounded-xl" type="email" placeholder="email">
-                        <div class="flex justify-between items-center mt-8 rounded-lg p-4 ">
+                        <input class ="w-11/12 my-4 py-2.5 px-6 mx-2  border-solid border-2 border-green-700 rounded-xl" type="text" placeholder="kode promo" v-model="promoCode">
+                        <div class="flex justify-between items-center rounded-lg p-4 ">
                             <div>
                                 <div class="text-md font-semibold">
                                     <span id="denom">{{nominal}}</span> <span id="type">{{type}}</span>
                                 </div>
                                 <div class="text-md font-semibold">
                                     <h2 class="text-gray-900">Harga</h2>
-                                    <h1 class="text-gray-900">Rp. <span id="price">{{price}}</span></h1>
+                                    <h1 class="text-gray-900">Rp.<span id="price"> {{price}}</span></h1>
                                 </div>
                             </div>
                             </div>
-                            <button v-if="access_token" type="submit" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
+                            <button v-if="access_token" type="submit" class="h-10 p-2 m-4 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
+                            <router-link to="/login" v-if="!access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </router-link>
                         </form>
-                        <router-link to="/login" v-if="!access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </router-link>
 
                     </div>
             </section>

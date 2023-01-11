@@ -21,7 +21,7 @@ export const useCounterStore = defineStore('counter', {
       },
       oneGame: "",
       items: [],
-      price: "",
+      price: 0,
       nominal: "",
       type: "",
       cekId: "",
@@ -33,6 +33,7 @@ export const useCounterStore = defineStore('counter', {
       paymentType: "",
       order_Id: "",
       gameName: "",
+      promoCode:"",
       access_token: localStorage.getItem("access_token")
     }
   },
@@ -131,6 +132,18 @@ export const useCounterStore = defineStore('counter', {
         let { data } = await axios({
           method: "GET",
           url: mainUrl+"/game"
+        })
+        this.readyGames = data
+        console.log(data, 'ini data')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getTopGame() {
+      try {
+        let { data } = await axios({
+          method: "GET",
+          url: mainUrl+"/game/top-game"
         })
         this.readyGames = data
         console.log(data, 'ini data')
@@ -337,7 +350,13 @@ export const useCounterStore = defineStore('counter', {
       }
   },
   async paymentConfirm(price) {
-    console.log(price, '<<<<<<<<<< midtranss')
+    console.log(this.promoCode, 'ini code promoooooooooooooooooooooooo')
+
+    if(this.promoCode === "BISMILLAH_PHASE3"){
+      
+      price = price - (price * 15 /100)
+    }
+    // console.log(price, '<<<<<<<<<< midtranss')
       try {
           let { data } = await axios({
               method: 'POST',
@@ -357,6 +376,7 @@ export const useCounterStore = defineStore('counter', {
           window.snap.pay(`${data.token.token}`, {
               onSuccess: async (result) => {
                   await this.statusPayment()
+                  this.router.push('/product')
               },
               onPending: function (result) {
                   alert("wating your payment!"); console.log(result);

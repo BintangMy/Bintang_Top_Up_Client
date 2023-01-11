@@ -26,10 +26,10 @@ export default {
     ...mapState(useCounterStore,["readyGames","commingSoonGame"])
     },
     methods:{
-      ...mapActions(useCounterStore,["getGame","getCommingSoonGame"])
+      ...mapActions(useCounterStore,["getTopGame","getCommingSoonGame"])
     },
     created(){
-      this.getGame()
+      this.getTopGame()
       this.getCommingSoonGame()
     }
 };
