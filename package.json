@@ -1,0 +1,20 @@
+{
+  "name": "bintang_top_up_client",
+  "version": "1.0.0",
+  "description": "Individual Project - Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hck-53-arsenic-fox/Bintang_Top_Up_Client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hck-53-arsenic-fox/Bintang_Top_Up_Client/issues"
+  },
+  "homepage": "https://github.com/hck-53-arsenic-fox/Bintang_Top_Up_Client#readme"
+}
