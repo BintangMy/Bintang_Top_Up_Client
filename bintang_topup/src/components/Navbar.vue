@@ -13,7 +13,7 @@ export default {
     ...mapState(useCounterStore, ["access_token"])
   },
   methods:{
-    // ...mapActions(useCounterStore,[ "getFavorite"])
+    ...mapActions(useCounterStore,["logout"])
   }
 };
 
@@ -61,7 +61,7 @@ export default {
                 href="#"
                 >Daftar</a
               >
-              <a v-if='access_token'
+              <a @click.prevent="logout" v-if='access_token'
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
                 href="#"
                 >Keluar</a

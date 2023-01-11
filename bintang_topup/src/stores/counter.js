@@ -13,6 +13,12 @@ export const useCounterStore = defineStore('counter', {
         email:"",
         password:""
       },
+      dataRegister: {
+        username: "",
+        email: "",
+        password: "",
+        referalCode: ""
+      },
       oneGame: "",
       items: [],
       price: "",
@@ -58,6 +64,46 @@ export const useCounterStore = defineStore('counter', {
           })
           // console.log(error, 'err login')
         }
+      },
+      async createAccount() {
+        try {
+          let { data } = await axios({
+            method: "POST",
+            url: mainUrl + "/register",
+            data: {
+              username: this.dataRegister.username,
+              email: this.dataRegister.email,
+              password: this.dataRegister.password,
+              phoneNumber: this.dataRegister.phoneNumber,
+              address: this.dataRegister.address,
+            },
+          })
+  
+          this.dataRegister.username = ""
+          this.dataRegister.email = ""
+          this.dataRegister.password = ""
+          this.dataRegister.phoneNumber = ""
+          this.dataRegister.address = ""
+  
+          this.router.push('/login')
+
+          // console.log(data, 'register berhasil')
+        } catch (error) {
+          
+          console.log(error, 'public register')
+        }
+      },
+      fetchRegister() {
+        this.dataRegister.username = ""
+        this.dataRegister.email = ""
+        this.dataRegister.password = ""
+        this.dataRegister.phoneNumber = ""
+        this.dataRegister.address = ""
+    },
+      async logout() {
+        localStorage.clear();
+        this.access_token = ""
+        this.router.push('/')
       },
     async getGame() {
       try {
@@ -252,16 +298,13 @@ export const useCounterStore = defineStore('counter', {
       this.paymentType = paymentType
       this.page = "detailProduct"
   },
-
-
   async statusPayment() {
-
       try {
           await axios({
               method: 'PATCH',
               url: mainUrl+"/payment/statusPayment",
               headers: {
-                  access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY3MzM1NzM2OX0.y8IQnbGJUnNKKmek3CtTVuIjMk2rlOgIzhChlcXVwP8"
+                  access_token: localStorage.getItem("access_token")
               },
               data: {
                   orderId: this.order_Id
@@ -279,7 +322,7 @@ export const useCounterStore = defineStore('counter', {
               method: 'POST',
               url: mainUrl+"/payment/get-payment-token",
               headers: {
-                  access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY3MzM1NzM2OX0.y8IQnbGJUnNKKmek3CtTVuIjMk2rlOgIzhChlcXVwP8"
+                  access_token: localStorage.getItem("access_token")
               },
               data: {
                   price: price

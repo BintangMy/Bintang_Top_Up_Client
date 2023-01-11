@@ -136,9 +136,9 @@ export default {
                                 </div>
                             </div>
                             </div>
-                            <button v-if="!access_token" type="submit" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
+                            <button v-if="access_token" type="submit" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
                         </form>
-                        <button v-if="access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
+                        <router-link to="/login" v-if="!access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </router-link>
 
                     </div>
             </section>
