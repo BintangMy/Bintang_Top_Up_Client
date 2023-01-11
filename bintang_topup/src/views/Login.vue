@@ -1,34 +1,31 @@
 <script>
-import Button from "../components/Button.vue"
-// import {GoogleLogin} from 'vue3-google-login'
+import Button from "../components/Button.vue";
+import { GoogleLogin } from "vue3-google-login";
 
 import { mapWritableState, mapActions } from "pinia";
 import { useCounterStore } from "../stores/counter";
 
 export default {
   // name:"Login",
-  components:{
-    Button
+  components: {
+    Button,
+    GoogleLogin,
   },
   data() {
     return {
-      buttonName: "Login"
+      buttonName: "Login",
     };
   },
-  computed:{
-    ...mapWritableState(useCounterStore, ["dataLogin"])
+  computed: {
+    ...mapWritableState(useCounterStore, ["dataLogin", "googleLogin"]),
   },
-  methods:{
-    ...mapActions(useCounterStore, ["loginCustomer"]),
-    // callback(response){
-    //         // this.$emit('handleLoginGoogle', response.credential)
-    //         // this.googleLogin(response.credential)
-    //     }
-      }
-  // },
-  // created(){
-  //   // this.loginCustomer()
-  // }
+  methods: {
+    ...mapActions(useCounterStore, ["loginCustomer", "googleLogin"]),
+    callback(response) {
+      // this.$emit('handleLoginGoogle', response.credential)
+      this.googleLogin(response.credential);
+    },
+  },
 };
 </script>
 
@@ -56,7 +53,7 @@ export default {
             v-model="this.dataLogin.password"
             placeholder="passwod"
           />
-          <Button type="submit" :buttonName = "buttonName"/>
+          <Button type="submit" :buttonName="buttonName" />
 
           <!-- <button
             type="submit"
@@ -99,11 +96,14 @@ export default {
           With Google
         </button> -->
 
-        <!-- <GoogleLogin :callback="callback" /> -->
+        <GoogleLogin :callback="callback" />
 
         <div class="mt-3 text-xs flex justify-between items-center">
           <p>Don't have an account yet !</p>
-          <router-link to="/register" class="border bg-white rounded-md py-2 px-5 hover:scale-105 duration-300">
+          <router-link
+            to="/register"
+            class="border bg-white rounded-md py-2 px-5 hover:scale-105 duration-300"
+          >
             Register
           </router-link>
         </div>

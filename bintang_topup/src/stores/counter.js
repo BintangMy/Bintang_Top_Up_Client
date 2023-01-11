@@ -100,6 +100,27 @@ export const useCounterStore = defineStore('counter', {
         this.dataRegister.phoneNumber = ""
         this.dataRegister.address = ""
     },
+    async googleLogin(credential) {
+
+        try {
+          let { data } = await axios({
+            method: "POST",
+            url: mainUrl + '/google-login-auth',
+            headers: {
+              google_token: credential
+            }
+          })
+  
+          // console.log(data, 'google')
+          localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("email", data.email)
+          localStorage.setItem("role", data.role)
+          this.access_token = "access_token_dummy"
+          this.router.push('/')
+        } catch (error) {
+          console.log(error)
+        }
+      },
       async logout() {
         localStorage.clear();
         this.access_token = ""
