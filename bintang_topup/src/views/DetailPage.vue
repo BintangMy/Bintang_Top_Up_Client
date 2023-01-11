@@ -18,11 +18,15 @@ export default {
     ...mapWritableState(useCounterStore,["oneGame", "items","cekId","playerId", "gameName", "nickname","nominal","region", "zonaML", "type", "price","access_token"])
     },
     methods:{
-      ...mapActions(useCounterStore,["detailCard", "priceCalculate", "paymentConfirm"])
+      ...mapActions(useCounterStore,["detailCard", "priceCalculate", "paymentConfirm", "handleCekId"]),
+      handleCalculate(price, id, nominal,type ){
+        console.log(price, id, nominal,type, "<<<<<<<<<<<");
+        this.priceCalculate(price, id, nominal,type)
+      },
     },
     created(){
-        // console.log(this.$route.params.gameId, 'ini id gameeee')
       this.detailCard(this.$route.params.gameId)
+      this.playerId = ""
     }
 };
 </script>
@@ -78,7 +82,7 @@ export default {
                             <option value="asia">Asia</option>
                           </select>
                         <!-- <div class="w-5 h-5 bg-green-700 text-center rounded-full m-1.5"> -->
-                            <button @click.prevent="this.cekId" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">cek id </button>
+                            <button @click.prevent="handleCekId" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">cek id </button>
                         <!-- </div> -->
                     </div>
                     <!-- <i class="text-xs text-black ml-2 break-words">Untuk menemukan ID Anda, klik pada ikon karakter. User ID tercantum di bawah nama karakter Anda.</i> -->
@@ -98,7 +102,7 @@ export default {
                     </div>
 
                     <div class="text-sm font-semibold m-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-                        <div @click="priceCalculate(item.price,item.id,item.nominal,item.type)"  v-for="item in items" :key="item.id" class="p-4 flex flex-col items-center border-solid border-2 border-green-700 rounded-xl shadow-xl hover:bg-green-200 hover:scale-105 duration-300">
+                        <div @click="handleCalculate(item.price,item.id,item.nominal,item.type)"  v-for="item in items" :key="item.id" class="p-4 flex flex-col items-center border-solid border-2 border-green-700 rounded-xl shadow-xl hover:bg-green-200 hover:scale-105 duration-300">
                             <img class="w-14 h-14" :src="item.itemIconUrl" alt="">
                             <div class="text-black"><span id="denom">{{item.nominal}}</span> <span id="type">{{item.type}}</span></div>
                         </div>
@@ -132,9 +136,9 @@ export default {
                                 </div>
                             </div>
                             </div>
-                            <button v-if="access_token" type="submit" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
+                            <button v-if="!access_token" type="submit" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
                         </form>
-                        <button v-if="!access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
+                        <button v-if="access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
 
                     </div>
             </section>

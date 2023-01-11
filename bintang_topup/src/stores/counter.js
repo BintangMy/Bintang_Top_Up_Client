@@ -2,13 +2,17 @@ import { ref, computed } from 'vue'
 import { defineStore, createPinia } from 'pinia'
 import axios from 'axios'
 
-// const mainUrl = 'http://localhost:3000/'
+const mainUrl = 'http://localhost:3050'
 
 export const useCounterStore = defineStore('counter', {
   state() {
     return {
       readyGames: [],
       commingSoonGame: [],
+      dataLogin:{
+        email:"",
+        password:""
+      },
       oneGame: "",
       items: [],
       price: "",
@@ -27,11 +31,39 @@ export const useCounterStore = defineStore('counter', {
     }
   },
   actions: {
+    async loginCustomer() {
+        try {
+            console.log(this.dataLogin, 'ini data loginnnn')
+          let { data } = await axios({
+            method: "POST",
+            url: mainUrl + "/login",
+            data: {
+              email: this.dataLogin.email,
+              password: this.dataLogin.password,
+            },
+          })
+  
+          // console.log(data)
+          localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("role", data.role);
+          this.dataLogin.email = ""
+          this.dataLogin.password = ""
+          this.access_token = "access_token_dummy"
+          this.router.push('/')
+        } catch (error) {
+          Swal.fire({
+            title: `${error.response.data.message}`,
+            icon: 'error',
+            confirmButtonText: 'Oke'
+          })
+          // console.log(error, 'err login')
+        }
+      },
     async getGame() {
       try {
         let { data } = await axios({
           method: "GET",
-          url: "http://localhost:3050/game"
+          url: mainUrl+"/game"
         })
         this.readyGames = data
         console.log(data, 'ini data')
@@ -43,7 +75,7 @@ export const useCounterStore = defineStore('counter', {
         try {
           let { data } = await axios({
             method: "GET",
-            url: "http://localhost:3050/game/comming-soon"
+            url: mainUrl+"/game/comming-soon"
           })
           this.commingSoonGame = data
           console.log(data, 'ini data comming soon')
@@ -56,7 +88,7 @@ export const useCounterStore = defineStore('counter', {
 
         let { data } = await axios({
           method: "GET",
-          url: "http://localhost:3050/game/" + gameId
+          url: mainUrl+"/game/" + gameId
         })
 
         console.log(data,'ini data detail')
@@ -64,28 +96,31 @@ export const useCounterStore = defineStore('counter', {
         this.oneGame = data
         this.items = data.Items
         this.gameName = data.name
-        if (data.name === "Free Fire") {
-          console.log('masuk nih')
-          this.cekId = this.apiCekIdFF
-        } else if (data.name === "Mobile Legends") {
-          console.log('masuk nih')
-          this.cekId = this.apiCekML
-        } else if (data.name === "Arena Of Valo") {
-          console.log('masuk nih')
-          this.cekId = this.apiCekAOV
-        } else if (data.name === "Call of Duty") {
-          console.log('masuk nih')
-          this.cekId = this.apiCekCOD
-        } else if (data.name === "Genshin Impact") {
-          console.log('masuk nih')
-          this.cekId = this.apiCekGENSHIN
-        } else if (data.name === "Higgs Domino") {
-          console.log('masuk nih')
-          this.cekId = this.apiCekIdDomino
-        }
+       
       } catch (error) {
-        console.log(error)
+        console.log(error, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
       }
+    },
+    handleCekId(){
+        if ( this.gameName === "Free Fire") {
+            console.log('masuk nih')
+            this.apiCekIdFF()
+          } else if ( this.gameName === "Mobile Legends") {
+            console.log('masuk nih')
+            this.apiCekML()
+          } else if ( this.gameName === "Arena Of Valo") {
+            console.log('masuk nih')
+            this.apiCekAOV()
+          } else if ( this.gameName === "Call of Duty") {
+            console.log('masuk nih')
+            this.apiCekCOD()
+          } else if ( this.gameName === "Genshin Impact") {
+            console.log('masuk nih')
+            this.apiCekGENSHIN()
+          } else if ( this.gameName === "Higgs Domino") {
+            console.log('masuk nih')
+            this.apiCekIdDomino()
+          }
     },
     priceCalculate(itemPrice, itemId, nominal, type) {
       // this.page = "detailProduct"
@@ -106,12 +141,13 @@ export const useCounterStore = defineStore('counter', {
 
           let { data } = await axios({
               method: 'POST',
-              url: 'http://localhost:3050/cekid/freefire',
+              url: mainUrl+'/cekid/freefire',
               data: {
                   id: this.playerId
               }
           })
-          console.log(data.data.username)
+          console.log(data )
+          console.log(data.data)
           this.nickname = data.data.username
       } catch (error) {
           console.log(error, 'ini error')
@@ -126,7 +162,7 @@ export const useCounterStore = defineStore('counter', {
 
           let { data } = await axios({
               method: 'POST',
-              url: 'http://localhost:3050/cekid/aov',
+              url: mainUrl+'/cekid/aov',
               data: {
                   id: this.playerId
               }
@@ -145,7 +181,7 @@ export const useCounterStore = defineStore('counter', {
 
           let { data } = await axios({
               method: 'POST',
-              url: 'http://localhost:3050/cekid/cod',
+              url: mainUrl+'/cekid/cod',
               data: {
                   id: this.playerId
               }
@@ -165,7 +201,7 @@ export const useCounterStore = defineStore('counter', {
 
           let { data } = await axios({
               method: 'POST',
-              url: 'http://localhost:3050/cekid/genshinImpact',
+              url: mainUrl+'/cekid/genshinImpact',
               data: {
                   id: this.playerId,
                   region: this.region
@@ -182,7 +218,7 @@ export const useCounterStore = defineStore('counter', {
       try {
           let { data } = await axios({
               method: 'POST',
-              url: 'http://localhost:3050/cekid/mobilelegends',
+              url: mainUrl+'/cekid/mobilelegends',
               data: {
                   id: this.playerId,
                   region: this.zonaML
@@ -199,7 +235,7 @@ export const useCounterStore = defineStore('counter', {
       try {
           let { data } = await axios({
               method: 'POST',
-              url: 'http://localhost:3050/cekid/dominohight',
+              url: mainUrl+'/cekid/dominohight',
               data: {
                   id: this.playerId,
               }
@@ -223,7 +259,7 @@ export const useCounterStore = defineStore('counter', {
       try {
           await axios({
               method: 'PATCH',
-              url: "http://localhost:3050/payment/statusPayment",
+              url: mainUrl+"/payment/statusPayment",
               headers: {
                   access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY3MzM1NzM2OX0.y8IQnbGJUnNKKmek3CtTVuIjMk2rlOgIzhChlcXVwP8"
               },
@@ -237,10 +273,11 @@ export const useCounterStore = defineStore('counter', {
       }
   },
   async paymentConfirm(price) {
+    console.log(price, '<<<<<<<<<< midtranss')
       try {
           let { data } = await axios({
               method: 'POST',
-              url: "http://localhost:3050/payment/get-payment-token",
+              url: mainUrl+"/payment/get-payment-token",
               headers: {
                   access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY3MzM1NzM2OX0.y8IQnbGJUnNKKmek3CtTVuIjMk2rlOgIzhChlcXVwP8"
               },
@@ -249,7 +286,7 @@ export const useCounterStore = defineStore('counter', {
               }
           })
 
-          console.log(price, 'ini priceeeeeeeeeeee')
+        //   console.log(price, 'ini priceeeeeeeeeeee')
 
 
           this.order_Id = data.orderId

@@ -21,7 +21,7 @@ export default {
 <template>
     <section id="nav">
         <div
-          class="bg-white fixed shadow-xl py-2 top-0 left-0 right-0 flex justify-between items-center"
+          class="z-[1000] bg-white fixed shadow-xl py-2 top-0 left-0 right-0 flex justify-between items-center"
         >
           <div class="logo">
             <a href="#"
@@ -52,10 +52,9 @@ export default {
                 href="#"
                 >Bantuan</a
               >
-              <a v-if='!access_token'
+              <router-link  to="/login" v-if='!access_token'
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
-                href="#"
-                >Masuk</a
+                >Masuk</router-link
               >
               <a v-if='!access_token'
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
