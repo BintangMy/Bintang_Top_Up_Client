@@ -1,7 +1,7 @@
 import { defineStore, createPinia } from 'pinia'
 import axios from 'axios'
 
-const mainUrl = 'http://localhost:3050'
+const mainUrl = 'https://bintang-top-up-production.up.railway.app'
 const mainUrlClient = `http://localhost:9090`
 export const useCounterStore = defineStore('counter', {
   state() {
@@ -88,10 +88,20 @@ export const useCounterStore = defineStore('counter', {
 
         this.router.push('/login')
 
+        Swal.fire({
+          title: `Berhasil membuat akun`,
+          icon: 'success',
+          confirmButtonText: 'Oke'
+        })
+
         // console.log(data, 'register berhasil')
       } catch (error) {
 
-        console.log(error, 'public register')
+        Swal.fire({
+          title: `Silakan lengkapi data`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     fetchRegister() {
@@ -118,7 +128,11 @@ export const useCounterStore = defineStore('counter', {
         this.access_token = "access_token_dummy"
         this.router.push('/')
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          title: `Silakan lengkapi data`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     async logout() {
@@ -176,7 +190,11 @@ export const useCounterStore = defineStore('counter', {
         this.gameName = data.name
 
       } catch (error) {
-        console.log(error, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        Swal.fire({
+          title: `${error.response.data.message}`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     handleCekId() {
@@ -205,10 +223,6 @@ export const useCounterStore = defineStore('counter', {
       this.price = itemPrice
       this.nominal = nominal
       this.type = type
-      // localStorage.setItem("price",itemPrice);
-      // localStorage.setItem("nominal",nominal);
-      // localStorage.setItem("type",type);
-      // console.log(itemPrice,itemId,';;;;;;;;;;;;;;;;;;;;')
     },
     async apiCekIdFF() {
       try {
@@ -224,11 +238,14 @@ export const useCounterStore = defineStore('counter', {
             id: this.playerId
           }
         })
-        console.log(data)
-        console.log(data.data)
+       
         this.nickname = data.data.username
       } catch (error) {
-        console.log(error, 'ini error')
+        Swal.fire({
+          title: `ID tidak ditemukan`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
 
     },
@@ -245,18 +262,17 @@ export const useCounterStore = defineStore('counter', {
             id: this.playerId
           }
         })
-        console.log(data.data.username)
         this.nickname = data.data.username
       } catch (error) {
-        console.log(error, 'ini error')
+        Swal.fire({
+          title: `ID tidak ditemukan`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     async apiCekCOD() {
       try {
-        console.log({
-          id: this.playerId
-        }, this.playerId, 'ini data')
-
         let { data } = await axios({
           method: 'POST',
           url: mainUrl + '/cekid/cod',
@@ -264,10 +280,14 @@ export const useCounterStore = defineStore('counter', {
             id: this.playerId
           }
         })
-        console.log(data.data.username)
+
         this.nickname = data.data.username
       } catch (error) {
-        console.log(error, 'ini error')
+        Swal.fire({
+        title: `ID tidak ditemukan`,
+        icon: 'error',
+        confirmButtonText: 'Oke'
+      })
       }
     },
     async apiCekGENSHIN() {
@@ -289,7 +309,11 @@ export const useCounterStore = defineStore('counter', {
         // this.page = "detailProduct"
         this.nickname = data.data.username
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          title: `ID tidak ditemukan`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     async apiCekML() {
@@ -306,7 +330,11 @@ export const useCounterStore = defineStore('counter', {
         // console.log(this.playerId,this.zonaML, 'kkkkkkkkkkkkkkk')
         this.nickname = data.data.username
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          title: `ID tidak ditemukan`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     async apiCekIdDomino() {
@@ -321,7 +349,11 @@ export const useCounterStore = defineStore('counter', {
         // this.page = "detailProduct"
         this.nickname = data.data.username
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          title: `ID tidak ditemukan`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
 
@@ -343,7 +375,11 @@ export const useCounterStore = defineStore('counter', {
         })
 
       } catch (error) {
-        console.log(err, 'edit gagal')
+        Swal.fire({
+          title: `Pembayaran Gagal`,
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
       }
     },
     async paymentConfirm(price) {
@@ -352,7 +388,6 @@ export const useCounterStore = defineStore('counter', {
 
         price = price - (price * 15 / 100)
       }
-      // console.log(price, '<<<<<<<<<< midtranss')
       try {
         let { data } = await axios({
           method: 'POST',
@@ -365,14 +400,17 @@ export const useCounterStore = defineStore('counter', {
           }
         })
 
-        //   console.log(price, 'ini priceeeeeeeeeeee')
-
-
         this.order_Id = data.orderId
         window.snap.pay(`${data.token.token}`, {
           onSuccess: async (result) => {
             await this.statusPayment()
             this.router.push('/product')
+
+            Swal.fire({
+              title: `Pembayaran berhasil silakan cek email anda`,
+              icon: 'Success',
+              confirmButtonText: 'Oke'
+            })
           },
           onPending: function (result) {
             alert("wating your payment!"); console.log(result);
@@ -391,19 +429,17 @@ export const useCounterStore = defineStore('counter', {
     },
     async qrCode(gameId) {
      let linkUrl =`${mainUrl}/detail/${gameId}`
-      try {
-        const { data } = await axios({
-            method:'POST',
-            url:'http://localhost:3050/game/qrcode',
-            data:{
-              link:linkUrl
-            }
-        }) 
-        this.qrImg = data
-        console.log(data,'ini qr dari')
-      } catch (error) {
-        console.log(error,'iiiiiiiiiiiiiiiiiiii');
-      }
+     try {
+      let {data} = await axios({
+        method:'GET',
+        url:`https://api.happi.dev/v1/qrcode?data=${linkUrl}&width=&dots=000000&bg=FFFFFF&apikey=d1c43anh13Ezh2SIAwoDow1azVPrDacfGJ6JgVNkRGc7WNSz3xxW5A4r`
+      })
+
+      this.qrImg = data.qrcode
+    // console.log(data.qrcode, 'ini qr')
+    } catch (error) {
+      console.log(error)
+    }
     }
   }
 })
