@@ -53,16 +53,9 @@ updatedAt
         <img :src="game.logoUrl" calt='profile image' class="w-32 mt-16 ml-7 drop-shadow-xl"
             style="clip-path: circle(50px at center)" width="50px">
         <h1 class="font-bold text-xl">{{game.name}}</h1>
-        <div class="text-xs text-blue-400">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-        </div>
-        <p class="text-xs m-2">Rp.20.700 ~ Rp.1.399.000</p>
-        <a href="#"><button
-                class="w-full  text-base font-bold text-white bg-green-400 py-2">Beli</button></a>
+       
+        <p class="text-xs m-2">Mobile Game</p>
+        <span class="w-full  text-base font-bold text-white py-2">‎ ‎ </span>
     </div>
 </div>
 </div>

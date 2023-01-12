@@ -16,12 +16,12 @@ export default {
         }
     },
     computed:{
-    ...mapWritableState(useCounterStore,["oneGame", "items","cekId","playerId", "gameName", "nickname","nominal","region", "zonaML", "type", "price","access_token","promoCode"])
+    ...mapWritableState(useCounterStore,["oneGame", "items","cekId","playerId", "gameName", "nickname","nominal","region", "zonaML", "type", "price","access_token","promoCode","qr"])
     },
     methods:{
-      ...mapActions(useCounterStore,["detailCard", "priceCalculate", "paymentConfirm", "handleCekId"]),
+      ...mapActions(useCounterStore,["detailCard", "priceCalculate", "paymentConfirm", "handleCekId", "qrCode"]),
       handleCalculate(price, id, nominal,type ){
-        console.log(price, id, nominal,type, "<<<<<<<<<<<");
+        // console.log(price, id, nominal,type, "<<<<<<<<<<<");
         this.priceCalculate(price, id, nominal,type)
         this.buttonItem =  []
         this.buttonItem[id - 1] = true
@@ -33,8 +33,11 @@ export default {
       this.detailCard(this.$route.params.gameId)
       this.playerId = ""
       this.nickname = ""
-      this.buttonItem =  []
+      this.buttonItem = []
+      this.promoCode = ""
+    //   this.qrCode(this.$route.params.gameId)
 
+  
     },
     mounted(){
         for(let val in this.items) {this.buttonItem.push(0)}
@@ -70,7 +73,6 @@ export default {
                 </div>
             </div>
         </section>
-        <!-- 4012975855 -->
         
         <section id="data_top_up" class="w-4/6 ">
             <form >
@@ -84,10 +86,10 @@ export default {
                     </div>
 
                     <div class="flex items-center">
-                        <input class ="m-3 text-center px-8 py-3 border-solid border-2 border-green-700 rounded-xl" type="text" placeholder="Player Id" v-model = "this.playerId">
-                        <input v-if = "gameName === 'Mobile Legends'" class ="m-3 text-center px-2 py-3 border-solid border-2 border-green-700 rounded-xl" type="text" placeholder="( Zona )" v-model = "zonaML">
+                        <input class ="m-3 text-center px-8 py-3 border-solid border-2 border-green-700 rounded-xl" type="text" placeholder="Player Id" v-model = "this.playerId" required>
+                        <input v-if = "gameName === 'Mobile Legends'" class ="m-3 text-center px-2 py-3 border-solid border-2 border-green-700 rounded-xl" type="text" placeholder="( Zona )" v-model = "zonaML" required>
 
-                        <select class="p-2.5 mx-2 rounded-xl text-center"  v-if = "gameName === 'Genshin Impact'" v-model="region" >
+                        <select class="p-2.5 mx-2 rounded-xl text-center"  v-if = "gameName === 'Genshin Impact'" v-model="region" required>
                             <option value="america">Amerika</option>
                             <option value="europa">Europa</option>
                             <option value="asia">Asia</option>
@@ -122,9 +124,6 @@ export default {
                 </div>
             </section>
 
-        
-
-            
         </form>
             <section id="cek_id">
                 <div class="shadow-xl bg-gray-200 w-11/12 rounded-xl ml-8 my-10">
@@ -149,7 +148,7 @@ export default {
                             </div>
                             </div>
                             <button v-if="access_token" type="submit" class="h-10 p-2 m-4 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
-                            <router-link to="/login" v-if="!access_token" class="h-10 p-2 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </router-link>
+                            <button @click="this.$router.push('/login')"  v-if="!access_token" class="h-10 p-2 m-6 rounded-md bg-green-600 text-white hover:scale-105 duration-300">Beli sekarang </button>
                         </form>
 
                     </div>

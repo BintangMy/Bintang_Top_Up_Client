@@ -52,8 +52,8 @@ export default {
 
       <section id="new_product" class="py-12">
         <div class="flex flex-col items-center">
-          <h2 class="font-bold text-3xl">Terbaru</h2>
-          <span class="py-0.5 px-12 rounded-full bg-green-400"></span>
+          <h2 class="font-bold text-3xl">Segera Hadir</h2>
+          <span class="py-0.5 my-1 px-24 rounded-full bg-green-400"></span>
         </div>
 
         <inActiveGameCard :commingSoonGame="commingSoonGame" />
@@ -75,7 +75,7 @@ export default {
           >
             <div class="relative flex gap-4">
               <img
-                src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
+                src="https://ik.imagekit.io/bintangtopup/bintangtopup/user-1.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672032577008"
                 class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20"
                 alt=""
                 loading="lazy"
@@ -85,15 +85,14 @@ export default {
                   <p
                     class="relative text-xl whitespace-nowrap truncate overflow-hidden"
                   >
-                    GG Gemink
+                    Hadi Guna
                   </p>
                 </div>
-                <p class="text-green-400 text-sm">20 April 2022, at 14:88 PM</p>
+                <p class="text-green-600 text-sm">9 Januari 2022, 14:08 PM</p>
               </div>
             </div>
             <p class="-mt-4 text-green-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              quisquam vero adipisci beatae voluptas dolor ame.
+              Pelayanan Bintang Top Up sangat cepat dan handal, membuat saya merasa nyaman dalam melakukan top up kredit game. Aplikasinya sangat mudah digunakan dan transaksi selalu berhasil dengan cepat.
             </p>
           </div>
 
@@ -102,7 +101,7 @@ export default {
           >
             <div class="relative flex gap-4">
               <img
-                src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
+                src="https://ik.imagekit.io/bintangtopup/bintangtopup/user-3.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672032578577"
                 class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20"
                 alt=""
                 loading="lazy"
@@ -112,15 +111,14 @@ export default {
                   <p
                     class="relative text-xl whitespace-nowrap truncate overflow-hidden"
                   >
-                    GG Gemink
+                    Raihan Mauladani
                   </p>
                 </div>
-                <p class="text-green-400 text-sm">20 April 2022, at 14:88 PM</p>
+                <p class="text-green-600 text-sm">10 Januari 2023, 10:09 PM</p>
               </div>
             </div>
             <p class="-mt-4 text-green-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              quisquam vero adipisci beatae voluptas dolor ame.
+              Saya sangat merekomendasikan Bintang Top Up karena pelayanannya sangat baik. Aplikasinya sangat user-friendly dan transaksi top up kredit game selalu berhasil dengan cepat.
             </p>
           </div>
 
@@ -129,7 +127,7 @@ export default {
           >
             <div class="relative flex gap-4">
               <img
-                src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
+                src="https://ik.imagekit.io/bintangtopup/bintangtopup/user-2.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672032577634"
                 class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20"
                 alt=""
                 loading="lazy"
@@ -139,15 +137,14 @@ export default {
                   <p
                     class="relative text-xl whitespace-nowrap truncate overflow-hidden"
                   >
-                    GG Gemink
+                  Aufar
                   </p>
                 </div>
-                <p class="text-green-400 text-sm">20 April 2022, at 14:88 PM</p>
+                <p class="text-green-600 text-sm">1 Januari 2023, 20:12 PM</p>
               </div>
             </div>
             <p class="-mt-4 text-green-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              quisquam vero adipisci beatae voluptas dolor ame.
+              Bintang Top Up menawarkan pelayanan top up kredit game yang sangat memuaskan. Aplikasinya sangat mudah digunakan dan transaksi selalu berhasil dengan cepat. Pelayanan customer service juga sangat responsif dan membantu dalam menyelesaikan masalah yang saya hadapi.
             </p>
           </div>
         </div>

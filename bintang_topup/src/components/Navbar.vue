@@ -26,7 +26,7 @@ export default {
           <div class="logo">
             <a href="#"
               ><img
-                src="https://ik.imagekit.io/bintangtopup/bintangtopup/logo.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672032570292"
+                src="https://ik.imagekit.io/bintangtopup/bintangtopup/card/logo.png?ik-sdk-version=javascript-1.4.3&updatedAt=1673486183282"
                 width="125px"
             /></a>
           </div>
@@ -43,12 +43,12 @@ export default {
               >
               <a
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
-                href="#"
+                href="https://www.instagram.com/bintang_topup/"
                 >Tentang</a
               >
               <a
                 class="p-2 mx-2 rounded-full hover:text-white hover:bg-green-400"
-                href="#"
+                href="https://api.whatsapp.com/send?phone=6285718707307"
                 >Bantuan</a
               >
               <router-link  to="/login" v-if='!access_token'

@@ -37,9 +37,9 @@ export default {
       class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center"
     >
       <div class="md:w-1/2 px-2 md:px-16">
-        <h2 class="font-bold text-2xl text-green-500">Register</h2>
+        <h2 class="font-bold text-2xl text-green-500">Daftar</h2>
         <p class="text-xs mt-4 text-green-500">
-          please complete the your data
+          silakan lengkapi data dibawah
         </p>
         <form
           action=""
@@ -86,7 +86,7 @@ export default {
       <div class="md:block hidden w-1/2">
         <img
           class="rounded-2xl"
-          src="https://images.unsplash.com/photo-1588773846628-13fce0a32105?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80"
+          src="https://images.unsplash.com/photo-1580464360012-948b4fe5ddc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80"
         />
       </div>
     </div>

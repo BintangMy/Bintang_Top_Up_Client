@@ -20,11 +20,11 @@
             <p class="pb-6">
               jasa pengisian item game murah,aman,cepat dan terpercaya
             </p>
-            <button
+            <router-link to="/product"
               class="bg-green-400 px-8 p-2 rounded-full text-white hover:scale-105 duration-300"
             >
               Beli sekarang
-            </button>
+            </router-link>
           </div>
         </div>
       </section>

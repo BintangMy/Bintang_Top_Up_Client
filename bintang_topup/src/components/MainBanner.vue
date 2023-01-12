@@ -11,11 +11,11 @@
               Semua kebutuhan game yang anda inginkan ada di kami<br />terpecaya
               sejak 2018
             </p>
-            <button
+            <router-link to="/product"
               class="bg-green-400 p-3 py-2 rounded-full text-white hover:scale-105 duration-300"
             >
               Beli sekarang
-            </button>
+            </router-link>
           </div>
           <img
             class="w-1/2"

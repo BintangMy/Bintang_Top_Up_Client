@@ -42,7 +42,7 @@ export default {
 
       <section id="top_product">
         <div class="flex flex-col items-center">
-          <h2 class="pt-14 font-bold text-3xl">Products</h2>
+          <h2 class="pt-14 font-bold text-3xl">Produk</h2>
           <span class="py-0.5 px-12 rounded-full bg-green-400"></span>
         </div>
 
