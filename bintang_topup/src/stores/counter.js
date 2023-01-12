@@ -384,7 +384,7 @@ export const useCounterStore = defineStore('counter', {
     },
     async paymentConfirm(price) {
 
-      if (this.promoCode === "BISMILLAH_PHASE3") {
+      if (this.promoCode === "TOPUPBONUS") {
 
         price = price - (price * 15 / 100)
       }
